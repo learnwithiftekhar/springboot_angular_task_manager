@@ -1,5 +1,6 @@
 package com.learnwithiftekhar.taskmanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -19,7 +20,9 @@ public class Project {
     private String description;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Task> tasks;
+
 
     public void addTask(Task task) {
         tasks.add(task);
@@ -54,6 +57,15 @@ public class Project {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
 
     @Override
     public String toString() {
